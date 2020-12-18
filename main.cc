@@ -1017,19 +1017,41 @@ int main(int argc, char * argv[]){
           }
           //create skeleton diagram (prints Voronoi network to file, and accessible Voronoi network to a separate file, in an adjacent cell if specified with shift - xyz and vtk output files generated)
           else if(command[0].compare("-visVoro") == 0){
-            if(command.size()!=2 && command.size()!=5) {
-              printf("Error: -visVoro option accepts 1 (probe radius) or 4 (probe radius and then a, b and c shifts for illustrating accessible part of network) arguments but %d arguments were supplied.\n", (int)(command.size() - 1));
-              printf("Exiting...\n");
-  //            exit(1);
-              error=true; break;
+            string prefix;
+            //printf("%s\n",prefix.c_str());
+            if(command.size()==3 || command.size() ==6) {
+              prefix = command[2].c_str();
+              //printf("%s\n",prefix.c_str());
             }
+            //printf("%s\n",prefix.c_str());
+            string filename_xyz = processFilenameXtra(command, name, prefix, ".voro", 1, 2);
+            string filename2_xyz = processFilenameXtra(command, name, prefix, ".voro_accessible", 1, 2);
+            string filename3_xyz = processFilenameXtra(command, name, prefix, ".voro_nonaccessible", 1, 2);
+            // string filename_xyz = processFilenameXtra(command, name, prefix, "_voro.xyz", 1, 2);
+            // string filename2_xyz = processFilenameXtra(command, name, prefix, "_voro_accessible.xyz", 1, 2);
+            // string filename3_xyz = processFilenameXtra(command, name, prefix, "_voro_nonaccessible.xyz", 1, 2);
+            string filename_vtk = processFilenameXtra(command, name, prefix, "_voro.vtk", 1, 2);
+            string filename2_vtk = processFilenameXtra(command, name, prefix, "_voro_accessible.vtk", 1, 2);
+            string filename3_vtk = processFilenameXtra(command, name, prefix, "_voro_nonaccessible.vtk", 1, 2);
+
+            if(filename_xyz.empty() || filename2_xyz.empty() || filename3_xyz.empty() || filename_vtk.empty() || filename2_vtk.empty() || filename3_vtk.empty()) {error=true; break;}
+  //           if(command.size()!=2 && command.size()!=5) {
+  //             printf("Error: -visVoro option accepts 1 (probe radius) or 4 (probe radius and then a, b and c shifts for illustrating accessible part of network) arguments but %d arguments were supplied.\n", (int)(command.size() - 1));
+  //             printf("Exiting...\n");
+  // //            exit(1);
+  //             error=true; break;
+  //           }
             double probeRad = strtod(command[1].data(), NULL);
             int skel_a = 0, skel_b = 0, skel_c = 0;
             if(command.size()==5) {
               //if shift was provided
               skel_a = strtod(command[2].data(), NULL), skel_b = strtod(command[3].data(), NULL), skel_c = strtod(command[4].data(), NULL);
             }
-            visVoro(name, probeRad, skel_a, skel_b, skel_c, &vornet, &atmnet);
+            if(command.size()==6) {
+              //if shift was provided
+              skel_a = strtod(command[3].data(), NULL), skel_b = strtod(command[4].data(), NULL), skel_c = strtod(command[5].data(), NULL);
+            }
+            visVoro(name, prefix, probeRad, skel_a, skel_b, skel_c, &vornet, &atmnet, filename_xyz, filename2_xyz, filename3_xyz, filename_vtk, filename2_vtk, filename3_vtk);
           }
           //extract spherical substructures: this is a functionality designed for extracting local substructures of zeolites so that they can be scanned for potential guest molecule binding sites
           //this functionality writes out a number of xyz format files containing spherical substructures of the given radius, centred on given probe-accessible Voronoi nodes; if an element_type is given, a simplified Voronoi network is used, based only on atoms of that type

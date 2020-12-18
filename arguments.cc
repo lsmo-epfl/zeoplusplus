@@ -24,6 +24,21 @@ string processFilename(vector<string> command, string name, string file_type, un
     }
 }
 
+string processFilenameXtra(vector<string> command, string name, string prefix, string file_type, unsigned int num_args_1, unsigned int num_args_2){
+    if(command.size() == (num_args_1 + 1) || command.size() == (num_args_1 + 4)){
+        return string(name).append(file_type);
+    }
+    else if (command.size() == (num_args_2 + 1) || command.size() == (num_args_2 + 4)){
+        return string(prefix).append(file_type);
+    }
+    else {
+        cerr << "Error: " << command[0] << " option accepts " << num_args_1 << " or " << num_args_2 << " or " << num_args_1 + 3 << " or " << num_args_2 + 3
+        << " arguments but " << command.size() - 1 << " arguments were supplied. " << "\n"
+        << "Exiting..." << "\n";
+        //    exit(1);
+        return "";
+    }
+}
 
 /** Assuming that -r was part of the command line parameters, this
  function examines the list of arguments to determine whether

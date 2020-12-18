@@ -63,7 +63,7 @@ double calcASA(ATOM_NETWORK *atmnet, ATOM_NETWORK *orgatmnet, bool highAccuracy,
 std::string calcASA(ATOM_NETWORK *atmnet, ATOM_NETWORK *orgatmnet, bool highAccuracy, double r_probe_chan, double r_probe, int numSamples, bool excludePockets,  bool ExtendedOutputFlag);
 
 void determineAccessibility(ATOM_NETWORK *atmnet, double r_probe_chan, double r_probe, bool excludePockets, std::vector<bool> *isAccessible, VORONOI_NETWORK *pointSet);
-void visVoro(char* name, double probeRad, int skel_a, int skel_b, int skel_c, VORONOI_NETWORK* vornet, ATOM_NETWORK* atmnet);
+void visVoro(char* name, string prefix, double probeRad, int skel_a, int skel_b, int skel_c, VORONOI_NETWORK* vornet, ATOM_NETWORK* atmnet, string filename_xyz, string filename2_xyz, string filename3_xyz, string filename_vtk, string filename2_vtk, string filename3_vtk);
 
 //extract spherical substructures: this is a functionality designed for extracting local substructures of zeolites so that they can be scanned for potential guest molecule binding sites
 //this functionality writes out a number of xyz format files containing spherical substructures of the given radius, centred on given probe-accessible Voronoi nodes; if an element_type is given, a simplified Voronoi network is used, based only on atoms of that type

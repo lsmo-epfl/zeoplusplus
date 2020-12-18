@@ -32,6 +32,7 @@ class zeoJob {
   std::vector< std::vector<std::string> > commands;
   char name[256];
   char extension[256];
+  char prefix[256];
 
   /* Run setting */
   double probeRadius;  // this stores a probe radius used in all Zeo++ analysis
@@ -418,19 +419,49 @@ class zeoJob {
         output.close();
       }
       else if(command[0].compare("-visVoro") == 0){ // for visualization
-        if(command.size()!=1 && command.size()!=4) {
-          printf("Error: -visVoro option accepts 0 or 3 (a, b and c shifts for illustrating accessible part of network) arguments but %d arguments were supplied.\n", (int)(command.size() - 1));
-          printf("Exiting...\n");
-          error=true; break;
+        string prefix = "";
+        if(command.size()==3 || command.size() ==6) {
+          string prefix = command[2];
         }
+        string filename_xyz = processFilenameXtra(command, name, prefix, "_voro.xyz", 1, 2);
+        string filename2_xyz = processFilenameXtra(command, name, prefix, "_voro_accessible.xyz", 1, 2);
+        string filename3_xyz = processFilenameXtra(command, name, prefix, "_voro_nonaccessible.xyz", 1, 2);
+        string filename_vtk = processFilenameXtra(command, name, prefix, "_voro.vtk", 1, 2);
+        string filename2_vtk = processFilenameXtra(command, name, prefix, "_voro_accessible.vtk", 1, 2);
+        string filename3_vtk = processFilenameXtra(command, name, prefix, "_voro_nonaccessible.vtk", 1, 2);
+
+        if(filename_xyz.empty() || filename2_xyz.empty() || filename3_xyz.empty() || filename_vtk.empty() || filename2_vtk.empty() || filename3_vtk.empty()) {error=true; break;}
+
+
+        // string filename_xyz = processFilenameXtra(command, name, prefix, "_voro.xyz", 1, 2);
+        // string filename2_xyz = processFilenameXtra(command, name, prefix, "_voro_accessible.xyz", 1, 2);
+        // string filename3_xyz = processFilenameXtra(command, name, prefix, "_voro_nonaccessible.xyz", 1, 2);
+        // if(filename_xyz.empty() || filename2_xyz.empty() || filename3_xyz.empty()) {error=true; break;}
+        // if(command.size()!=1 && command.size()!=4) {
+        //   printf("Error: -visVoro option accepts 0 or 3 (a, b and c shifts for illustrating accessible part of network) arguments but %d arguments were supplied.\n", (int)(command.size() - 1));
+        //   printf("Exiting...\n");
+        //   error=true; break;
+        // }
+        double probeRad = strtod(command[1].data(), NULL);
         int skel_a = 0, skel_b = 0, skel_c = 0;
-        if(command.size()==4) {
+        if(command.size()==5) {
           //if shift was provided
-          skel_a = strtod(command[1].data(), NULL), skel_b = strtod(command[2].data(), NULL), skel_c = strtod(command[3].data(), NULL);
-        };
+          skel_a = strtod(command[2].data(), NULL), skel_b = strtod(command[3].data(), NULL), skel_c = strtod(command[4].data(), NULL);
+        }
+        if(command.size()==6) {
+          //if shift was provided
+          skel_a = strtod(command[3].data(), NULL), skel_b = strtod(command[4].data(), NULL), skel_c = strtod(command[5].data(), NULL);
+        }
+
+
+        // int skel_a = 0, skel_b = 0, skel_c = 0;
+        // if(command.size()==4) {
+        //   //if shift was provided
+        //   skel_a = strtod(command[1].data(), NULL), skel_b = strtod(command[2].data(), NULL), skel_c = strtod(command[3].data(), NULL);
+        // };
         Material.runVoroFlat();
-       //        visVoro(name, probeRad, skel_a, skel_b, skel_c, &vornet, &atmnet);
-        Material.visualizeVoroNet(name, probeRadius, skel_a, skel_b, skel_c);
+       //        visVoro(name, prefix, probeRad, skel_a, skel_b, skel_c, &vornet, &atmnet);
+        Material.visualizeVoroNet(name, prefix, probeRadius, skel_a, skel_b, skel_c, filename_xyz, filename2_xyz, filename3_xyz, filename_vtk, filename2_vtk, filename3_vtk);
       }
 
   //Rich: holograms as a separate flag, -holo

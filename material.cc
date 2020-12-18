@@ -109,8 +109,11 @@ void MATERIAL::ASAreportPoints(ostream &output){
 
 
 /* visVORO FUNCTION */
-void MATERIAL::visualizeVoroNet(char* name, double r, int skel_a, int skel_b, int skel_c){
-  visVoro(name, r, skel_a, skel_b, skel_c, &vornet, &atmnet);
+//void visVoro(char* name, string prefix, double probeRad, int skel_a, int skel_b, int skel_c, VORONOI_NETWORK* vornet, ATOM_NETWORK* atmnet, string *filename_xyz, string *filename2_xyz, string *filename3_xyz) {
+//void visVoro(char* name, string prefix, double probeRad, int skel_a, int skel_b, int skel_c, VORONOI_NETWORK* vornet, ATOM_NETWORK* atmnet) {
+
+void MATERIAL::visualizeVoroNet(char* name, string prefix, double r, int skel_a, int skel_b, int skel_c, string filename_xyz, string filename2_xyz, string filename3_xyz, string filename_vtk, string filename2_vtk, string filename3_vtk){
+  visVoro(name, prefix, r, skel_a, skel_b, skel_c, &vornet, &atmnet, filename_xyz, filename2_xyz, filename3_xyz, filename_vtk, filename2_vtk, filename3_vtk);
   }; // ends visVoro
 
 

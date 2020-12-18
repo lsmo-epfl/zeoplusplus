@@ -169,7 +169,7 @@ class MATERIAL {
   void ASAcalc(double r, int sampleDensity,ostream &output, char *filename);
   void ASAreportPoints(ostream &output); 
 
-  void visualizeVoroNet(char *, double, int, int, int);
+  void visualizeVoroNet(char *, string, double, int, int, int, string filename_xyz, string filename2_xyz, string filename3_xyz, string filename_vtk, string filename2_vtk, string filename3_vtk);
 
   void PLDcalc(double r, double seg_r, string seg_file, ostream &output, char *filename);
   void PLDcalcFromMolecules(double r, ostream &output, char *filename);
