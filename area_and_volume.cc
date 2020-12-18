@@ -168,6 +168,133 @@ void reportPointsVisIT(ostream &output, vector<Point> axsPoints, vector<int> axs
     output <<  coords[0] << " " << coords[1] << " " << coords[2] << " 0 n " << inaxsPPIDs[i] << "\n";
   }
 }
+void reportPointsCIF(ostream &output, vector<Point> axsPoints, vector<int> axsPChIDs, vector<Point> inaxsPoints, vector<int> inaxsPPIDs,  ATOM_NETWORK *cell,double totASA,double totNASA){
+
+
+    string formula = "pore-vis";
+    output << "data_" << formula << endl;
+    output << "#******************************************" << endl;
+    output << "#" << endl;
+    output << "# CIF file created by Zeo++" << endl;
+    output << "# Zeo++ is an open source package to" << endl;
+    output << "# analyze microporous materials" << endl;
+    output << "#" << endl;
+    output << "#*******************************************" << "\n\n";
+    output << "_cell_length_a\t\t" << cell->a << "   " << endl;     //  removed (0) 
+    output << "_cell_length_b\t\t" << cell->b << "   " << endl;
+    output << "_cell_length_c\t\t" << cell->c << "   " << endl;
+    output << "_cell_angle_alpha\t\t" << cell->alpha << "   " << endl;
+    output << "_cell_angle_beta\t\t" << cell->beta << "   " << endl;
+    output << "_cell_angle_gamma\t\t" << cell->gamma << "   \n\n";
+    output << "_symmetry_space_group_name_H-M\t\t" << "'P1'" << endl;
+    output << "_symmetry_Int_Tables_number\t\t" << "1" << endl;
+    output << "_symmetry_cell_setting\t\t";
+    
+    //Determine the Crystal System
+    if (cell->alpha == 90 && cell->beta == 90 && cell->gamma == 90){
+      if (cell->a == cell->b || cell->b == cell->c || cell->a == cell->c){
+	      if (cell->a == cell->b && cell->b == cell->c){
+	        output << "Isometric\n" << endl;
+	      }
+	      else {
+	        output << "Tetragonal\n" << endl;
+        }
+      }
+      else{
+      	output << "Orthorhombic\n" << endl;
+      }
+    }
+    else if(cell->alpha == cell->beta || cell->beta == cell->gamma || cell->alpha == cell->gamma){
+      output << "Monoclinic\n" << endl;
+    }
+    else{
+      output << "Triclinic\n" << endl;
+    }
+    
+    output << "loop_" << endl;
+    output << "_symmetry_equiv_pos_as_xyz" << endl;
+    output << "'+x,+y,+z'\n" << endl;
+    output << "loop_" << endl;
+    output << "_atom_site_label" << endl;
+    output << "_atom_site_type_symbol" << endl;
+    output << "_atom_site_fract_x" << endl;
+    output << "_atom_site_fract_y" << endl;
+    output << "_atom_site_fract_z" << endl;
+    output << "_atom_site_calc_flag" << endl;    // channel id
+    output << "_atom_site_description" << endl; // accessible:0, inaccessible 1
+
+    // Performing subsampling of points //
+    vector<Point> sub_axsPoints = vector<Point> (); // stores accessible points
+    vector<Point> sub_inaxsPoints = vector<Point> (); // stores accessible pointsA
+    int numAxsSampled=(int)(0.3*totASA);
+    int numInAxsSampled=(int)(0.3*totNASA);
+    cout << "Subsampling points for the cif output.." <<"\n";
+    if (axsPoints.size()!=0){
+        sub_axsPoints.push_back(axsPoints.at(0));      // adding one point to the set
+        double rcut=1.3;
+        int count_fail=0;
+        while (sub_axsPoints.size()< numAxsSampled){
+            int selected = rand() % axsPoints.size();
+            Point coords_selected = axsPoints.at(selected);
+            double min_d=10000.0;
+            for(unsigned int i = 0; i < sub_axsPoints.size(); i++)
+            {
+                Point coords = sub_axsPoints.at(i);
+                double d_pair = cell->calcDistanceABC( coords_selected[0] , coords_selected[1] , coords_selected[2] , coords[0],coords[1],coords[2]);  
+                if (d_pair < min_d) min_d=d_pair;
+            }
+            if (min_d > rcut){
+               sub_axsPoints.push_back(coords_selected);
+            } else{
+               if (count_fail == 2000){
+                   count_fail=0;
+                   rcut-=0.1;
+                   if (rcut <= 0.7) break;
+               }else {
+                   count_fail+=1;
+               }
+            }
+        }
+    }
+    if (inaxsPoints.size()!=0){
+        sub_inaxsPoints.push_back(inaxsPoints.at(0));
+        double rcut=1.3;
+        int count_fail=0;
+        while (sub_inaxsPoints.size()< numInAxsSampled){
+            int selected = rand() % inaxsPoints.size();
+            Point coords_selected = inaxsPoints.at(selected);
+            double min_d=10000.0;
+            for(unsigned int i = 0; i < sub_inaxsPoints.size(); i++)
+            {
+                Point coords = sub_inaxsPoints.at(i);
+                double d_pair = cell->calcDistanceABC( coords_selected[0] , coords_selected[1] , coords_selected[2] , coords[0],coords[1],coords[2]);
+                if (d_pair < min_d) min_d=d_pair;
+            }
+            if (min_d > rcut){
+               sub_inaxsPoints.push_back(coords_selected);
+            } else{
+               if (count_fail == 2000){
+                   count_fail=0;
+                   rcut-=0.1;
+                   if (rcut <= 0.7) break;
+               }else {
+                   count_fail+=1;
+               }
+            }
+        }
+    }
+    
+   
+  for(unsigned int i = 0; i < sub_axsPoints.size(); i++){
+    Point coords = sub_axsPoints.at(i);
+    output << "A  " << "  A  " << coords[0] << " " << coords[1] << " " << coords[2] << " "<< axsPChIDs[i] << " 0 " <<"\n";
+   }
+  for(unsigned int i = 0; i < sub_inaxsPoints.size(); i++){
+    Point coords = sub_inaxsPoints.at(i);
+    output << "N  "<< "   N  " << coords[0] << " " << coords[1] << " " << coords[2] << " "<< inaxsPPIDs[i] <<" 1 " <<"\n";
+  }
+
+}
 
 
 /* To adjust the sampling point to minimize its distance with the central atom, shift the point by the reverse of the
@@ -1674,7 +1801,7 @@ void getLocalSubstructures(char* name, double probeRad, double local_substructur
 }
 
 
-double calcASA(ATOM_NETWORK *hiaccatmnet, ATOM_NETWORK *orgatmnet, bool highAccuracy, double r_probe_chan, double r_probe, double rho_crystal, int numSamples, bool excludePockets, ostream &output, char *filename, bool visualize, bool VisITflag, bool LiverpoolFlag, bool ExtendedOutputFlag){
+double calcASA(ATOM_NETWORK *hiaccatmnet, ATOM_NETWORK *orgatmnet, bool highAccuracy, double r_probe_chan, double r_probe, double rho_crystal, int numSamples, bool excludePockets, ostream &output, char *filename, bool visualize, bool VisITflag, bool LiverpoolFlag, bool CIFOFlag, bool ExtendedOutputFlag){
 
   ATOM_NETWORK *atmnet; // pointed to the analyzed (original atomsnet)
 
@@ -1835,7 +1962,8 @@ double calcASA(ATOM_NETWORK *hiaccatmnet, ATOM_NETWORK *orgatmnet, bool highAccu
          LiverpoolInaxsPoints.push_back(atmnet->xyz_to_abc(inaxsPoints[j]));
          };
 //      reportPointsVisIT(output, LiverpoolAxsPoints, LiverpoolInaxsPoints);
-      reportPointsVisIT(output, LiverpoolAxsPoints, axsPointsChannelIDs, LiverpoolInaxsPoints, inaxsPointsPocketIDs);
+      //reportPointsVisIT(output, LiverpoolAxsPoints, axsPointsChannelIDs, LiverpoolInaxsPoints, inaxsPointsPocketIDs);
+            reportPointsCIF(output, LiverpoolAxsPoints, axsPointsChannelIDs, LiverpoolInaxsPoints, inaxsPointsPocketIDs, atmnet,totalSA, totalSA_inaxs);
       };
       };
     //reportResampledPoints(output, resampledInfo);
@@ -2455,8 +2583,8 @@ bool inside = overlaps; // Only want to visualize points that are not inside sam
 */
 
 
-double calcASA(ATOM_NETWORK *atmnet, ATOM_NETWORK *orgatmnet, bool highAccuracy, double r_probe, double rho_crystal, int numSamples, bool excludePockets, ostream &output, char *filename, bool visualize, bool VisITflag, bool LiverpoolFlag, bool ExtendedOutputFlag){
-  return calcASA(atmnet, orgatmnet, highAccuracy, r_probe, r_probe, rho_crystal, numSamples, excludePockets, output, filename, visualize, VisITflag, LiverpoolFlag, ExtendedOutputFlag);
+double calcASA(ATOM_NETWORK *atmnet, ATOM_NETWORK *orgatmnet, bool highAccuracy, double r_probe, double rho_crystal, int numSamples, bool excludePockets, ostream &output, char *filename, bool visualize, bool VisITflag, bool LiverpoolFlag, bool CIFOFlag, bool ExtendedOutputFlag){
+  return calcASA(atmnet, orgatmnet, highAccuracy, r_probe, r_probe, rho_crystal, numSamples, excludePockets, output, filename, visualize, VisITflag, LiverpoolFlag,CIFOFlag, ExtendedOutputFlag);
 }
 
 /// Cython wrapper to calcASA where visualization flags are ignored
@@ -2465,7 +2593,7 @@ string calcASA(ATOM_NETWORK *atmnet, ATOM_NETWORK *orgatmnet, bool highAccuracy,
     stringstream output;
     string filename = "No filename";
     double rho_crystal = calcDensity(atmnet);
-    double sa = calcASA(atmnet, orgatmnet, highAccuracy, r_probe_chan, r_probe, rho_crystal, numSamples, excludePockets, output, (char *)filename.data(), false, false, false, ExtendedOutputFlag);
+    double sa = calcASA(atmnet, orgatmnet, highAccuracy, r_probe_chan, r_probe, rho_crystal, numSamples, excludePockets, output, (char *)filename.data(), false, false, false,false, ExtendedOutputFlag);
     return output.str();
 }
 

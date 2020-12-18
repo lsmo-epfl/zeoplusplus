@@ -527,7 +527,7 @@ class zeoJob {
         double volume = calcDeterminant(Material.atmnet.ucVectors); // Unit cell volume/Units of A^3
         int numSamples = (int)(volume*numSamplesAV);
         calcAV(&(Material.atmnet), &(Material.orgAtomnet), Material.highAccuracy, probeRadius, probeRadius, numSamples, true, output, (char *)filename.c_str(), 0, 0, 0, 0, -1,-1, 0);
-        calcASA(&(Material.atmnet), &(Material.orgAtomnet), Material.highAccuracy, probeRadius, probeRadius, calcDensity(&(Material.atmnet)), numSamplesASA, true, output, (char *)filename.c_str(), 0, 0, 0, 0);
+        calcASA(&(Material.atmnet), &(Material.orgAtomnet), Material.highAccuracy, probeRadius, probeRadius, calcDensity(&(Material.atmnet)), numSamplesASA, true, output, (char *)filename.c_str(), 0, 0, 0, 0,0);
 
         for(unsigned int i = 0; i < pores.size(); i++)
           if(pores[i].dimensionality>0) pores[i].printPoreSummary(output, &(Material.atmnet)); // Channels

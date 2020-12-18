@@ -23,6 +23,7 @@ double calcDensity(ATOM_NETWORK *atmnet);
  * inaccessible points are colored red.*/
 void reportPoints(std::ostream &output, std::vector<Point> axsPoints, std::vector<Point> inaxsPoints);
 void reportPointsVisIT(std::ostream &output, std::vector<Point> axsPoints, std::vector<Point> inaxsPoints);
+void reportPointsCIF(ostream &output, vector<Point> axsPoints, vector<int> axsPChIDs, vector<Point> inaxsPoints, vector<int> inaxsPPIDs,ATOM_NETWORK *cell,double totSA, double totNASA);
 
 /* Print the coordinates contained in the provided vectors in a manner that they can be
  * displayed using ZeoVis and its VMD interface. Useful for debugging errors in the
@@ -57,8 +58,8 @@ double calcAV(ATOM_NETWORK *atmnet, ATOM_NETWORK *orgatmnet, bool highAccuracy, 
 // For python interface
 std::string calcAV(ATOM_NETWORK *atmnet, ATOM_NETWORK *orgatmnet, bool highAccuracy, double r_probe_chan, double r_probe, int numSamples, bool excludePockets, double low_dist_cutoff, double high_dist_cutoff);
 
-double calcASA(ATOM_NETWORK *atmnet, ATOM_NETWORK *orgatmnet, bool highAccuracy, double r_probe_chan, double r_probe, double rho_crystal, int numSamples, bool excludePockets, std::ostream &output, char *filename, bool visualize, bool VisITflag, bool LiverpoolFlag, bool ExtendedOutputFlag);
-double calcASA(ATOM_NETWORK *atmnet, ATOM_NETWORK *orgatmnet, bool highAccuracy, double r_probe, double rho_crystal, int numSamples, bool excludePockets, std::ostream &output, char *filename, bool visualize, bool VisITflag, bool LiverpoolFlag, bool ExtendedOutputFlag);
+double calcASA(ATOM_NETWORK *atmnet, ATOM_NETWORK *orgatmnet, bool highAccuracy, double r_probe_chan, double r_probe, double rho_crystal, int numSamples, bool excludePockets, std::ostream &output, char *filename, bool visualize, bool VisITflag, bool LiverpoolFlag, bool CIFOFlag ,bool ExtendedOutputFlag);
+double calcASA(ATOM_NETWORK *atmnet, ATOM_NETWORK *orgatmnet, bool highAccuracy, double r_probe, double rho_crystal, int numSamples, bool excludePockets, std::ostream &output, char *filename, bool visualize, bool VisITflag, bool LiverpoolFlag, bool CIFOFlag,bool ExtendedOutputFlag);
 // For python interface
 std::string calcASA(ATOM_NETWORK *atmnet, ATOM_NETWORK *orgatmnet, bool highAccuracy, double r_probe_chan, double r_probe, int numSamples, bool excludePockets,  bool ExtendedOutputFlag);
 

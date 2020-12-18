@@ -521,7 +521,7 @@ int main(int argc, char * argv[]){
             double volume = calcDeterminant(atmnet.ucVectors); // Unit cell volume/Units of A^3
             int numSamples = (int)(volume*numSamplesAV);
             calcAV(&atmnet, &orgAtomnet, highAccuracy, probe_radius, probe_radius, numSamples, true, output, (char *)filename.c_str(), 0, 0, 0, 0, -1,-1, 0);
-            calcASA(&atmnet, &orgAtomnet, highAccuracy, probe_radius, probe_radius, calcDensity(&atmnet), numSamplesASA, true, output, (char *)filename.c_str(), 0, 0, 0, 0);
+            calcASA(&atmnet, &orgAtomnet, highAccuracy, probe_radius, probe_radius, calcDensity(&atmnet), numSamplesASA, true, output, (char *)filename.c_str(), 0, 0, 0, 0,0);
 
             for(unsigned int i = 0; i < pores.size(); i++)
               if(pores[i].dimensionality>0) pores[i].printPoreSummary(output, &atmnet); // Channels
@@ -550,16 +550,21 @@ int main(int argc, char * argv[]){
 //            calculateAverageGrid(&atmnet, filename_InputData, filename_Gaussian_cube, angstrom_to_bohr, useMass);
             analyzePoreInfoFiles(&atmnet, filename_InputData, filename_output);
           }
-          else if((command[0].compare("-sa") == 0) || (command[0].compare("-saex") == 0) || (command[0].compare("-zsa") == 0) || (command[0].compare("-vsa") == 0) || (command[0].compare("-lsa")==0)){
-            bool visualize = (command[0].compare("-zsa") == 0 || command[0].compare("-vsa") == 0 || command[0].compare("-lsa")==0);
-            bool visVisITflag = (command[0].compare("-vsa")==0 || command[0].compare("-lsa")==0);
-            bool LiverpoolFlag = (command[0].compare("-lsa")==0);
+          else if((command[0].compare("-sa") == 0) || (command[0].compare("-saex") == 0) || (command[0].compare("-zsa") == 0) || (command[0].compare("-vsa") == 0) || (command[0].compare("-lsa")==0)||(command[0].compare("-csa")==0)){
+            bool visualize = (command[0].compare("-zsa") == 0 || command[0].compare("-vsa") == 0 || command[0].compare("-lsa")==0||(command[0].compare("-csa")==0));
+            bool visVisITflag = (command[0].compare("-vsa")==0 || command[0].compare("-lsa")==0||(command[0].compare("-csa")==0));
+            bool LiverpoolFlag = (command[0].compare("-lsa")==0||(command[0].compare("-csa")==0));
+            bool CIFOFlag = ((command[0].compare("-csa")==0));
             bool ExtendedOutputFlag = (command[0].compare("-saex") == 0);
             string suffix;
             if(visualize)
 	      {
 	      if(visVisITflag) {
-                if(LiverpoolFlag) suffix = ".lsa"; else suffix = ".vsa";
+                if(LiverpoolFlag && CIFOFlag)
+                    suffix = "_SA.cif"; 
+                else if (LiverpoolFlag)
+                    suffix = ".lsa"; 
+                else suffix = ".vsa";
                 } else {suffix = ".zsa";};
 	      }
             else
@@ -572,7 +577,7 @@ int main(int argc, char * argv[]){
           
             fstream output; 
             output.open(filename.data(), fstream::out);
-            calcASA(&atmnet, &orgAtomnet, highAccuracy, chan_radius, probe_radius, calcDensity(&atmnet), numSamples, true, output, (char *)filename.data(), visualize, visVisITflag, LiverpoolFlag, ExtendedOutputFlag); 
+            calcASA(&atmnet, &orgAtomnet, highAccuracy, chan_radius, probe_radius, calcDensity(&atmnet), numSamples, true, output, (char *)filename.data(), visualize, visVisITflag, LiverpoolFlag,CIFOFlag, ExtendedOutputFlag); 
             output.close();
           }
           else if( (command[0].compare("-vol") == 0) || (command[0].compare("-zvol") == 0) || (command[0].compare("-vvol") == 0) || (command[0].compare("-lvol") == 0) || (command[0].compare("-volpo") == 0)) {
