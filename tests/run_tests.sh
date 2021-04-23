@@ -27,9 +27,10 @@ check_changes
 network -ha -psd 1.2 1.2 50000 EDI.cssr
 check_changes
 
-network -ha -res history_1000.cssr
-check_changes
-network -ha -sa 1.5 1.5 2000 history_1000.cssr
-check_changes
-network -ha -vol 1.5 1.5 200000 history_1000.cssr
-check_changes
+#The tests below take too long to be run on CI
+#network -ha -res history_1000.cssr
+#check_changes
+#network -ha -sa 1.5 1.5 2000 history_1000.cssr
+#check_changes
+#network -ha -vol 1.5 1.5 200000 history_1000.cssr
+#check_changes

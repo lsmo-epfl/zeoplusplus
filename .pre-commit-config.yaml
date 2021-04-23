@@ -8,7 +8,9 @@
     exclude: &exclude_files >
       (?x)^(
           .*.cif|
-          zeo\+\+/Eigen/.*
+          zeo\+\+/Eigen/.*|
+          tests/EDI.*|
+          tests/history_.*
       )$
   - id: end-of-file-fixer
     exclude: *exclude_files
