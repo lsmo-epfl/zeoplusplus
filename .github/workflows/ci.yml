@@ -16,5 +16,6 @@ jobs:
 
     - name: test zeo++
       run: |
-        export PATH=zeo++/:$PATH
-        source tests/run_tests.sh
+        cd tests
+        export PATH=../zeo++/:$PATH
+        source run_tests.sh
