@@ -16,7 +16,7 @@ function check_changes
 }
 
 
-network -ha -res EDI.cssr
+network -ha -res -allowAdjustCoordsAndCell EDI.cssr
 check_changes
 network -ha -chan 1.5 EDI.cssr
 check_changes
