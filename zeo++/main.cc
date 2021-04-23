@@ -1150,16 +1150,13 @@ int main(int argc, char *argv[]) {
                          probe_radius, numSamples, output, visualize, option);
             output.close();
           } else if (command[0].compare("-r") == 0 ||
-                     command[0].compare("-nor") == 0) {
-            // Preprocessed radii
-          } else if (command[0].compare("-ha") == 0) {
-            // Preprocessed high accuracy settings
-          } else if (command[0].compare("-mass") == 0 ||
-                     command[0].compare("-nomass") == 0) {
-            // Preprocessed atomic masses
-          } else if (command[0].compare("-stripatomnames") == 0) {
-            // Preprocessed atomic masses
-            //
+                     command[0].compare("-nor") == 0 ||
+                     command[0].compare("-ha") == 0 ||
+                     command[0].compare("-mass") == 0 ||
+                     command[0].compare("-nomass") == 0 ||
+                     command[0].compare("-stripatomnames") == 0 ||
+                     command[0].compare("-allowAdjustCoordsAndCell") == 0) {
+            // Nothing to do for options that were already pre-processed
           } else if ((command[0].compare("-cage") == 0) ||
                      (command[0].compare("-zcage") == 0)) {
             bool visualize = (command[0].compare("-zcage") == 0);
