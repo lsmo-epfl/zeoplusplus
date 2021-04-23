@@ -328,10 +328,10 @@ bool storeVoronoiNetwork(c_option &con, ATOM_NETWORK *atmnet,
   double error_percent_tolerance =
       0.001;  // former (before Voro++ fit default = 0.1;
   if (error_percent > error_percent_tolerance) {
-    fprintf(
-        "Error: Voronoi volume check failed (%.3f%% error, > %.3f%% "
-        "tolerance).\nExiting...\n",
-        error_percent, error_percent_tolerance);
+    fprintf(stderr,
+            "Error: Voronoi volume check failed (%.3f%% error, > %.3f%% "
+            "tolerance).\nExiting...\n",
+            error_percent, error_percent_tolerance);
     return false;
     //      exit(1);
   }

@@ -297,6 +297,7 @@ bool readCIFFile(char *filename, ATOM_NETWORK *cell, bool radial) {
       if (symmetry_Int_Table_number >= 0 && symmetry_Int_Table_number != 1) {
         // read a symmetry table number, but it was not 1
         fprintf(
+            stderr,
             "ERROR:\n\tcif file provided no symmetry operations; however, a "
             "symmetry_Int_Tables_Number of %d was provided,\n\tindicating "
             "symmetry which is not 'P 1' (no symmetry operations);\n\tcannot "
@@ -464,9 +465,9 @@ bool readARCFile(char *filename, ATOM_NETWORK *cell, bool radial) {
           }
         }
       } else {
-        fprintf(
-            "ERROR: finished parsing ARC file before finding geometry "
-            "section\n");
+        fprintf(stderr,
+                "ERROR: finished parsing ARC file before finding geometry "
+                "section\n");
         //        exit(EXIT_FAILURE);
         fclose(input);
         return false;
@@ -515,6 +516,7 @@ bool readARCFile(char *filename, ATOM_NETWORK *cell, bool radial) {
                             // presumably, reached the unit cell params
       } else {
         fprintf(
+            stderr,
             "ERROR: finished parsing ARC file before finding unit cell info\n");
         //        exit(EXIT_FAILURE);
         fclose(input);
@@ -543,7 +545,8 @@ bool readARCFile(char *filename, ATOM_NETWORK *cell, bool radial) {
           int status = sscanf(this_line, "%s %lf %s %lf %s %lf %s", element, &x,
                               str1, &y, str2, &z, str3);
           if (status != 7) {  // didn't read exactly 7 fields
-            fprintf("ERROR: could not read exactly three unit cell vectors\n");
+            fprintf(stderr,
+                    "ERROR: could not read exactly three unit cell vectors\n");
             //            exit(EXIT_FAILURE);
             fclose(input);
             return false;
