@@ -1,3 +1,5 @@
+[![Build Status](https://github.com/lsmo-epfl/zeopp-lsmo/workflows/ci/badge.svg)](https://github.com/lsmo-epfl/zeopp-lsmo/actions)
+
 # Zeo++-LSMO
 
 High-throughput analysis of crystalline porous materials
