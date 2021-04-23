@@ -1,0 +1,20 @@
+name: ci
+
+on: [push, pull_request]
+
+jobs:
+
+  ubuntu:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: build zeo++
+      run: bash .github/build.sh
+
+    - name: test zeo++
+      run: |
+        export PATH=zeo++/:$PATH
+        source tests/run_tests.sh
