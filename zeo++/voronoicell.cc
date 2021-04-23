@@ -459,7 +459,7 @@ void writeZeoVisFile(char *filename, vector<VOR_CELL> *cells,
   fstream output;
   output.open(filename, fstream::out);
   if (!output.is_open()) {
-    cout << "Error: Failed to open output file for ZeoVis settings" << filename;
+    cerr << "Error: Failed to open output file for ZeoVis settings" << filename;
     cout << "Exiting ..."
          << "\n";
     exit(1);
@@ -492,7 +492,7 @@ void writeSpecialZeoVisFile(char *filename, vector<VOR_CELL> *cells,
   fstream output;
   output.open(filename, fstream::out);
   if (!output.is_open()) {
-    cout << "Error: Failed to open output file for ZeoVis settings" << filename;
+    cerr << "Error: Failed to open output file for ZeoVis settings" << filename;
     cout << "Exiting ..."
          << "\n";
     exit(1);

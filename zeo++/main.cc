@@ -446,7 +446,7 @@ int main(int argc, char *argv[]) {
             vector<bool> accessInfo;
             vector<CHANNEL> channels;
             if (command.size() < 2 || command.size() > 3) {
-              printf(
+              fprintf(
                   "Error: -holo option accepts 1 (probe radius) or 2 (probe "
                   "radius and then bin directory) arguments but %d arguments "
                   "were supplied.\n",
@@ -775,14 +775,14 @@ int main(int argc, char *argv[]) {
                     7) {  // running with additional distance arguments tell you
                           // the fraction of accessible volume which is within
                           // this distance range away from any atom CENTRE
-              printf(
+              fprintf(
                   "Error: -vol option accepts between 3 and 6 arguments 1 but "
                   "%d arguments were supplied.\n",
                   (int)(command.size() - 1));
-              printf(
+              fprintf(
                   "Note:\t-vol chan_radius probe_radius num_samples "
                   "[outputfile_vol]\n");
-              printf(
+              fprintf(
                   "or:\t-vol chan_radius probe_radius num_samples "
                   "low_distance_range high_distance_range [outputfile_vol]\n");
               printf("Exiting...\n");
@@ -804,7 +804,7 @@ int main(int argc, char *argv[]) {
             double probe_radius = strtod(command[2].data(), NULL);
             int numSamples = int(strtod(command[3].data(), NULL));
             if (numSamples < 0) {
-              printf(
+              fprintf(
                   "ERROR: cannot call -vol flag with negative numSamples (arg "
                   "was: %d)\n",
                   numSamples);
@@ -1376,7 +1376,7 @@ int main(int argc, char *argv[]) {
           // if specified with shift - xyz and vtk output files generated)
           else if (command[0].compare("-visVoro") == 0) {
             if (command.size() != 2 && command.size() != 5) {
-              printf(
+              fprintf(
                   "Error: -visVoro option accepts 1 (probe radius) or 4 (probe "
                   "radius and then a, b and c shifts for illustrating "
                   "accessible part of network) arguments but %d arguments were "
@@ -1407,7 +1407,7 @@ int main(int argc, char *argv[]) {
           // type
           else if (command[0].compare("-sphericalSubstructures") == 0) {
             if (command.size() != 3 && command.size() != 4) {
-              printf(
+              fprintf(
                   "Error: -sphericalSubstructures option accepts 2 or 3 "
                   "(probe_radius, sphere_radius, [element_type]) argument but "
                   "%d arguments were supplied.\n",
@@ -1467,7 +1467,7 @@ int main(int argc, char *argv[]) {
           // radius overlaps with itself periodically
           else if (command[0].compare("-cellmulti") == 0) {
             if (command.size() != 2) {
-              printf(
+              fprintf(
                   "Error: -cellmulti option accepts 1 (sphere radius) argument "
                   "but %d arguments were supplied.\n",
                   (int)(command.size() - 1));

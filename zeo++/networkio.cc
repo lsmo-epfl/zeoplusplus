@@ -296,7 +296,7 @@ bool readCIFFile(char *filename, ATOM_NETWORK *cell, bool radial) {
       // no symmetry provided
       if (symmetry_Int_Table_number >= 0 && symmetry_Int_Table_number != 1) {
         // read a symmetry table number, but it was not 1
-        printf(
+        fprintf(
             "ERROR:\n\tcif file provided no symmetry operations; however, a "
             "symmetry_Int_Tables_Number of %d was provided,\n\tindicating "
             "symmetry which is not 'P 1' (no symmetry operations);\n\tcannot "
@@ -464,7 +464,7 @@ bool readARCFile(char *filename, ATOM_NETWORK *cell, bool radial) {
           }
         }
       } else {
-        printf(
+        fprintf(
             "ERROR: finished parsing ARC file before finding geometry "
             "section\n");
         //        exit(EXIT_FAILURE);
@@ -514,7 +514,7 @@ bool readARCFile(char *filename, ATOM_NETWORK *cell, bool radial) {
           found_atoms = 0;  // if we can't read all 8 fields, we have,
                             // presumably, reached the unit cell params
       } else {
-        printf(
+        fprintf(
             "ERROR: finished parsing ARC file before finding unit cell info\n");
         //        exit(EXIT_FAILURE);
         fclose(input);
@@ -543,7 +543,7 @@ bool readARCFile(char *filename, ATOM_NETWORK *cell, bool radial) {
           int status = sscanf(this_line, "%s %lf %s %lf %s %lf %s", element, &x,
                               str1, &y, str2, &z, str3);
           if (status != 7) {  // didn't read exactly 7 fields
-            printf("ERROR: could not read exactly three unit cell vectors\n");
+            fprintf("ERROR: could not read exactly three unit cell vectors\n");
             //            exit(EXIT_FAILURE);
             fclose(input);
             return false;
@@ -1827,7 +1827,7 @@ bool writeToMOPAC(char *filename, ATOM_NETWORK *cell, bool is_supercell) {
   fstream output;
   output.open(filename, fstream::out);
   if (!output.is_open()) {
-    cout << "Error: Failed to open .mop output file " << filename << endl;
+    cerr << "Error: Failed to open .mop output file " << filename << endl;
     // cout << "Exiting ..." << "\n";
     // exit(1);
     return false;

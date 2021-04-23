@@ -508,7 +508,7 @@ class zeoJob {
         output.close();
       } else if (command[0].compare("-visVoro") == 0) {  // for visualization
         if (command.size() != 1 && command.size() != 4) {
-          printf(
+          fprintf(
               "Error: -visVoro option accepts 0 or 3 (a, b and c shifts for "
               "illustrating accessible part of network) arguments but %d "
               "arguments were supplied.\n",
@@ -535,7 +535,7 @@ class zeoJob {
         vector<bool> accessInfo;
         vector<CHANNEL> channels;
         if (command.size() < 1 || command.size() > 2) {
-          printf(
+          fprintf(
               "Error: -holo option accepts no or 1 (bin directory) argument "
               "but %d arguments were supplied.\n",
               (int)(command.size() - 1));
@@ -877,7 +877,7 @@ class zeoJob {
       // a material
       else if (command[0].compare("-findTetrahedra") == 0) {
         if (command.size() != 2) {
-          printf(
+          fprintf(
               "Error: -findTetrahedra option accepts 1 (element type) argument "
               "but %d arguments were supplied.\n",
               (int)(command.size() - 1));
@@ -901,7 +901,7 @@ class zeoJob {
       // radius overlaps with itself periodically
       else if (command[0].compare("-cellmulti") == 0) {
         if (command.size() != 2) {
-          printf(
+          fprintf(
               "Error: -cellmulti option accepts 1 (sphere radius) argument but "
               "%d arguments were supplied.\n",
               (int)(command.size() - 1));

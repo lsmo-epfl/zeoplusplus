@@ -296,7 +296,7 @@ double calcAV(ATOM_NETWORK *atmnet, ATOM_NETWORK *orgatmnet, bool highAccuracy,
       count_inaxs++;
       pair<int, int> CoP = accessAnalysis.lastChannelOrPocket();
       if (CoP.first != -1) {
-        cout
+        cerr
             << "Error: CoP.first!=-1 in pocket, consult source code provider\n";
       } else {
         count_inPocket[CoP.second]++;
@@ -315,7 +315,7 @@ double calcAV(ATOM_NETWORK *atmnet, ATOM_NETWORK *orgatmnet, bool highAccuracy,
       count++;
       pair<int, int> CoP = accessAnalysis.lastChannelOrPocket();
       if (CoP.second != -1) {
-        cout << "Error: CoP.second!=-1 in channel, consult source code "
+        cerr << "Error: CoP.second!=-1 in channel, consult source code "
                 "provider\n";
       } else {
         count_inChannel[CoP.first]++;
@@ -830,7 +830,7 @@ double NEWcalcAV(MATERIAL *Mat, double r_probe, int numSamples,
       count_inaxs++;
       pair<int, int> CoP = Mat->accessAnalysis.lastChannelOrPocket();
       if (CoP.first != -1) {
-        cout
+        cerr
             << "Error: CoP.first!=-1 in pocket, consult source code provider\n";
       } else {
         Mat->AVcount_inPocket[CoP.second]++;
@@ -850,7 +850,7 @@ double NEWcalcAV(MATERIAL *Mat, double r_probe, int numSamples,
       count++;
       pair<int, int> CoP = Mat->accessAnalysis.lastChannelOrPocket();
       if (CoP.second != -1) {
-        cout << "Error: CoP.second!=-1 in channel, consult source code "
+        cerr << "Error: CoP.second!=-1 in channel, consult source code "
                 "provider\n";
       } else {
         Mat->AVcount_inChannel[CoP.first]++;
@@ -2020,7 +2020,7 @@ double calcASA(ATOM_NETWORK *hiaccatmnet, ATOM_NETWORK *orgatmnet,
           inaxsPoints.push_back(coords);
           pair<int, int> CoP = accessAnalysis.lastChannelOrPocket();
           if (CoP.first != -1) {
-            cout << "Error: CoP.first!=-1 in pocket, consult source code "
+            cerr << "Error: CoP.first!=-1 in pocket, consult source code "
                     "provider\n";
           } else {
             count_inPocket[CoP.second]++;
@@ -2031,7 +2031,7 @@ double calcASA(ATOM_NETWORK *hiaccatmnet, ATOM_NETWORK *orgatmnet,
           count++;
           pair<int, int> CoP = accessAnalysis.lastChannelOrPocket();
           if (CoP.second != -1) {
-            cout << "Error: CoP.second!=-1 in channel, consult source code "
+            cerr << "Error: CoP.second!=-1 in channel, consult source code "
                     "provider\n";
           } else {
             count_inChannel[CoP.first]++;
@@ -2299,7 +2299,7 @@ double NEWcalcASA(MATERIAL *Mat, double r_probe, int sampleDensity) {
           Mat->ASAinaxsPoints.push_back(coords);
           pair<int, int> CoP = Mat->accessAnalysis.lastChannelOrPocket();
           if (CoP.first != -1) {
-            cout << "Error: CoP.first!=-1 in pocket, consult source code "
+            cerr << "Error: CoP.first!=-1 in pocket, consult source code "
                     "provider\n";
           } else {
             count_inPocket[CoP.second]++;
@@ -2310,7 +2310,7 @@ double NEWcalcASA(MATERIAL *Mat, double r_probe, int sampleDensity) {
           count++;
           pair<int, int> CoP = Mat->accessAnalysis.lastChannelOrPocket();
           if (CoP.second != -1) {
-            cout << "Error: CoP.second!=-1 in channel, consult source code "
+            cerr << "Error: CoP.second!=-1 in channel, consult source code "
                     "provider\n";
           } else {
             count_inChannel[CoP.first]++;

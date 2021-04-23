@@ -9,6 +9,7 @@ This repository contains a fork of the original zeo++ code (version 0.3.0) with 
 For a list of changes, see the [CHANGELOG.md](./CHANGELOG.md).
 
 WWW: http://www.carboncapturematerials.org/Zeo++/
+
 Email: mharanczyk@lbl.gov (Zeo++) and chr@alum.mit.edu (Voro++)
 
 ## About
@@ -41,8 +42,8 @@ can be carried out using GNU Make.
 
 Clone the git repository
 ```
-git clone https://github.com/lsmo-epfl/zeoplusplus
-cd zeoplusplus
+git clone https://github.com/lsmo-epfl/zeopp-lsmo
+cd zeopp-lsmo
 ```
 
 Download Eigen library v3.2.7 (if not already installed)
