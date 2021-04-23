@@ -278,6 +278,9 @@ bool readCIFFile(char *filename, ATOM_NETWORK *cell, bool radial) {
                 atom_y.at(this_ID) = tempcoor[1];
                 atom_z.at(this_ID) = tempcoor[2];
               }
+              // If last line of a loop ends without a newline, you end up in an
+              // infinite loop because `getline` keeps returning the last line
+              if (ciffile.eof()) break;
               getline(ciffile, line);
               token = split(line, " ',\r\t");
             }

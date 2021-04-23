@@ -15,6 +15,8 @@ function check_changes
     fi
 }
 
+network -ha -res ZIF-67_opt.cif
+check_changes
 
 network -ha -res -allowAdjustCoordsAndCell EDI.cssr
 check_changes
