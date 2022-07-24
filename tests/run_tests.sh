@@ -16,7 +16,7 @@ function check_changes
 }
 
 network -xyz ZIF-67_opt.cif
-check_changes ZIF-67_opt.cif ZIF-67_opt_ref.cif
+check_changes ZIF-67_opt.xyz ZIF-67_opt_ref.xyz
 
 network -ha -res -allowAdjustCoordsAndCell EDI.cssr
 check_changes EDI.res EDI_ref.res
