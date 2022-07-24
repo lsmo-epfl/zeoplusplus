@@ -6,7 +6,7 @@ set -e
 function check_changes
 {
     #diff=`git diff-index --quiet HEAD --`
-    diff=`git diff .`
+    diff=`git diff --no-index $1 $2`
 
     if [ -n "$diff" ]; then
         echo "### Changes detected:"
@@ -16,18 +16,18 @@ function check_changes
 }
 
 network -xyz ZIF-67_opt.cif
-check_changes
+check_changes ZIF-67_opt.cif ZIF-67_opt_ref.cif
 
 network -ha -res -allowAdjustCoordsAndCell EDI.cssr
-check_changes
+check_changes EDI.res EDI_ref.res
 network -ha -chan 1.5 EDI.cssr
-check_changes
+check_changes EDI.chan EDI_ref.chan
 network -ha -sa 1.2 1.2 2000 EDI.cssr
-check_changes
+check_changes EDI.sa EDI_ref.sa
 network -ha -vol 1.2 1.2 50000 EDI.cssr
-check_changes
+check_changes EDI.vol EDI_ref.vol
 network -ha -psd 1.2 1.2 50000 EDI.cssr
-check_changes
+check_changes EDI.psd_histo EDI_ref.psd_histo
 
 #The tests below take too long to be run on CI
 #network -ha -res history_1000.cssr
