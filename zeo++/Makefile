@@ -19,7 +19,7 @@ endif
 LIB += -lvoro++
 
 # The relative of path of the main library source files
-VOROINCLDIR = -I../voro++/src -I../eigen-3.2.7/
+VOROINCLDIR = -I../voro++/src 
 VOROLINKDIR = -L../voro++/src
 
 #Object files to be created for network

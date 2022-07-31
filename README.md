@@ -9,8 +9,6 @@ By Maciej Haranczyk, Chris H Rycroft, Richard L Martin, Thomas F Willems
 This repository contains a fork of the original zeo++ code (version 0.3.0) with bug fixes and improvements, maintained by the [Laboratory of Molecular Simulation](http://lsmo.epfl.ch/) at EPFL.
 For a list of changes, see the [CHANGELOG.md](./CHANGELOG.md).
 
-WWW: http://www.carboncapturematerials.org/Zeo++/
-
 Email: mharanczyk@lbl.gov (Zeo++) and chr@alum.mit.edu (Voro++)
 
 ## About
