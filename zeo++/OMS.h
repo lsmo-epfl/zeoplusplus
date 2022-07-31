@@ -18,7 +18,7 @@
 #include <iostream>
 #include <vector>
 
-#include "eigen3/Eigen/Dense"
+#include "Eigen/Dense"
 #include "zeo_consts.h"
 
 #define DIM 3
