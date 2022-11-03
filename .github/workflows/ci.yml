@@ -14,8 +14,8 @@ jobs:
     - name: build zeo++
     
       run: |
-        apt-add-repository universe
-        apt-get install libeigen3-dev
+        suod apt-add-repository universe
+        sudo apt-get install libeigen3-dev
         bash .github/build.sh
 
     - name: test zeo++
