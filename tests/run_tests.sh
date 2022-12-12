@@ -30,11 +30,11 @@ echo "Testing network -ha -sa 1.2 1.2 2000 EDI.cssr"
 network -ha -sa 1.2 1.2 2000 EDI.cssr
 check_changes EDI.sa EDI_ref.sa
 
-echo "network -ha -vol 1.2 1.2 50000 EDI.cssr"
+echo "Testing network -ha -vol 1.2 1.2 50000 EDI.cssr"
 network -ha -vol 1.2 1.2 50000 EDI.cssr
 check_changes EDI.vol EDI_ref.vol
 
-echo "network -ha -psd 1.2 1.2 50000 EDI.cssr"
+echo "Testing network -ha -psd 1.2 1.2 50000 EDI.cssr"
 network -ha -psd 1.2 1.2 50000 EDI.cssr
 check_changes EDI.psd_histo EDI_ref.psd_histo
 
