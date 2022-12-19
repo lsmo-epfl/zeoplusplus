@@ -815,7 +815,7 @@ void calcSphereIntersect(
             diff = 2 * Radius2 - overlapDist;
             volFraction = volIntersect / vol2;
           }
-          if (!size) {
+          else {
             diff = 2 * Radius1 - overlapDist;
             volFraction = volIntersect / vol1;
           }
