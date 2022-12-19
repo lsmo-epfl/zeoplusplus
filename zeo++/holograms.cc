@@ -914,6 +914,7 @@ void analyze_accessible_voronoi_pre_segment(VORONOI_NETWORK *vornet,
   float_edge_length_bin_upper_bounds[NUM_BINS - 1] = 1000;  // i.e. 'infinity'
   for (i = 0; i < NUM_BINS; i++) {
     int_node_radii_bins[i] = 0;
+    int_edge_radii_bins[i] = 0;
     int_edge_length_bins[i] = 0;
     float_node_radii_bins[i] = 0;
     float_edge_length_bins[i] = 0;
