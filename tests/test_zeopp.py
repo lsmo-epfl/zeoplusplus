@@ -1,7 +1,7 @@
 import shutil
 import subprocess
 from pathlib import Path
-
+import os 
 import pytest
 from parsers import (
     AVolumeParser,
@@ -11,7 +11,8 @@ from parsers import (
     SurfaceAreaParser,
 )
 
-_NETWORK_BINARY = "../zeo++/network"
+_CWD = Path(__file__).parent
+_NETWORK_BINARY = os.path.join(_CWD, "../zeo++/network")
 
 
 def test_xyz(tmpdir):
