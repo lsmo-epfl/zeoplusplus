@@ -12,8 +12,6 @@ jobs:
 
       - name: build zeo++
         run: sudo apt install libeigen3-dev && bash .github/build.sh
-      - run: cd zeo++ && ls
-      - run: ls
       - name: test zeo++
         run: |
           cd tests
