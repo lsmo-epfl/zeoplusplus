@@ -16,5 +16,5 @@ jobs:
       - name: test zeo++
         run: |
           cd tests
-          pip install pytest 
+          pip install pytest
           pytest test_zeopp.py
