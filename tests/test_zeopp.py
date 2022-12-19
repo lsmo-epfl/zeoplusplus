@@ -118,6 +118,7 @@ def test_vol(tmpdir):
 
 def test_psd(tmpdir):
     # run network -ha -psd 1.2 1.2 50000 EDI.cssr
+    shutil.copy("EDI.cssr", tmpdir)
     subprocess.run(
         [_NETWORK_BINARY, "-ha", "-psd", "1.2", "1.2", "50000", "EDI.cssr"],
         cwd=tmpdir,
