@@ -3,19 +3,17 @@ name: ci
 on: [push, pull_request]
 
 jobs:
-
   ubuntu:
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: build zeo++
-      run: sudo apt install libeigen3-dev && bash .github/build.sh
-
-    - name: test zeo++
-      run: |
-        cd tests
-        export PATH=../zeo++/:$PATH
-        bash run_tests.sh
+      - name: build zeo++
+        run: sudo apt install libeigen3-dev && bash .github/build.sh
+      - name: test zeo++
+        run: |
+          cd tests
+          pip install pytest
+          pytest test_zeopp.py
