@@ -1,7 +1,7 @@
 import shutil
 import subprocess
 from pathlib import Path
-import os 
+import os
 import pytest
 from parsers import (
     AVolumeParser,
@@ -12,7 +12,7 @@ from parsers import (
 )
 
 _CWD = Path(__file__).parent
-_NETWORK_BINARY = os.path.join(_CWD, "../zeo++/network")
+_NETWORK_BINARY = os.environ.get("ZEOPP_BINARY", os.path.join(_CWD, "../zeo++/network"))
 
 
 def test_xyz(tmpdir):
