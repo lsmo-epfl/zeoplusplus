@@ -11,7 +11,7 @@ from parsers import (
     SurfaceAreaParser,
 )
 
-_NETWORK_BINARY = "network"
+_NETWORK_BINARY = "./zeo++/network"
 
 
 def test_xyz(tmpdir):

@@ -16,6 +16,5 @@ jobs:
       - name: test zeo++
         run: |
           cd tests
-          export PATH=../zeo++/:$PATH
           pip install pytest 
-          pytest test_zeopp.py
+          export PATH=../zeo++/:$PATH  pytest test_zeopp.py
